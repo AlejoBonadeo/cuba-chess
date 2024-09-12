@@ -1,6 +1,6 @@
 // pages/match.js
 "use client";
-import usePlayerStore, { Player } from "@/store/playerStore";
+import usePlayerStore from "@/store/playerStore";
 import { FormEventHandler, useState } from "react";
 
 export default function Match() {

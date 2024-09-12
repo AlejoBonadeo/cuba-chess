@@ -1,0 +1,37 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model Player {
+  id              Int     @id @default(autoincrement())
+  name            String
+  associateNumber String  @unique
+  dni             String?
+  elo             Decimal @db.Money
+  whiteMatches    Match[] @relation("whitePlayer")
+  blackMatches    Match[] @relation("blackPlayer")
+}
+
+model Match {
+  id            Int         @id @default(autoincrement())
+  whitePlayer   Player      @relation("whitePlayer", fields: [whitePlayerId], references: [id])
+  whitePlayerId Int
+  blackPlayer   Player      @relation("blackPlayer", fields: [blackPlayerId], references: [id])
+  blackPlayerId Int
+  result        MatchResult
+  playedAt      DateTime    @default(now())
+}
+
+enum MatchResult {
+  WHITE_WON
+  BLACK_WON
+  DRAW
+}

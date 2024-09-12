@@ -19,8 +19,14 @@ export function calculateElo(
   const blackActualScore = 1 - whiteActualScore;
 
   // Calculate new ELO ratings
-  const newWhiteElo = whiteElo + K * (whiteActualScore - whiteExpectedScore);
-  const newBlackElo = blackElo + K * (blackActualScore - blackExpectedScore);
+  const newWhiteElo = Math.max(
+    whiteElo + K * (whiteActualScore - whiteExpectedScore),
+    1000
+  );
+  const newBlackElo = Math.max(
+    blackElo + K * (blackActualScore - blackExpectedScore),
+    1000
+  );
 
   return { newWhiteElo, newBlackElo };
 }

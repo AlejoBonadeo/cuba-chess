@@ -16,7 +16,7 @@ export async function POST(request: Request) {
 
   try {
     const player = await prisma.player.create({
-      data: { name, dni, associateNumber, elo: 1300 },
+      data: { name, dni, associateNumber, elo: 1100 },
     });
 
     return NextResponse.json({
